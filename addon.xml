@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="pluging.video.michael-corleone" name="michael" version="9.0.20" provider-name="freeworld group">
+    <requires>
+		<import addon="xbmc.python" version="2.14.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.service" library="server.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">michael-corleone</summary>
+		<description lang="en">ENJOY THE IPTV TOTALLY FREE</description>
+		<license>GNU General Public License, v2</license>
+		<language></language>
+	
+	</extension>
+</addon>
