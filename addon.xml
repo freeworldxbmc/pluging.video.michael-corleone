@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="pluging.video.michael-corleone" name=[COLOR blue]MICHAEL CORLEONE[/COLOR] version="9.0.20" provider-name="Freeworld Group">
+<addon id="pluging.video.michael-corleone" name="[COLOR blue]MICHAEL CORLEONE[/COLOR]" version="9.0.20" provider-name="Freeworld Group">
     <requires>
 		<import addon="xbmc.python" version="2.14.0"/>
 	</requires>
