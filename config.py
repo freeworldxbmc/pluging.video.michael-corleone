@@ -10,16 +10,13 @@ import xbmcplugin
 import load_channels
 import hashlib
 import re
-import random
-import base64
 
 import server
 
 addon       = xbmcaddon.Addon()
 addonname   = addon.getAddonInfo('name')
 addondir    = xbmc.translatePath( addon.getAddonInfo('profile') ) 
-addonset	= ['MDA6MUE6Nzg6NDI6NDI6NDI='.decode('base64'), 'MDA6MUE6Nzg6NDQ6NDQ6NDQ='.decode('base64'), 'MDA6MUE6Nzg6ODI6ODI6ODI='.decode('base64'), 'MDA6MUE6Nzg6OTk6OTk6OTk='.decode('base64'), 'MDA6MUE6Nzg6MTI6MTI6MTI='.decode('base64'), 'MDA6MUE6Nzg6MjA6MjA6MjA='.decode('base64'), 'MDA6MUE6Nzg6NDM6NDQ6NTE='.decode('base64'), 'MDA6MUE6Nzg6MTA6MDA6MDA='.decode('base64'), 'MDA6MUE6Nzg6MjI6MzM6NDQ='.decode('base64')]
-eternal		= (random.choice(addonset))
+
 
 def portalConfig(number):
 
@@ -39,13 +36,13 @@ def portalConfig(number):
 def configMac(number):
 	global go;
 	
-	custom_mac = ('Y3VzdG9tX21hY18x'.decode('base64'));
-	portal_mac = ('cG9ydGFsX21hY18x'.decode('base64'));
+	custom_mac = addon.getSetting('custom_mac_' + number);
+	portal_mac = addon.getSetting('portal_mac_' + number);
 	
 	if custom_mac != 'true':
-		portal_mac = (eternal);
+		portal_mac = '';
 		
-	elif not (custom_mac == 'true' and re.match("WzAtOWEtZl17Mn0oWy06XSlbMC05YS1mXXsyfShcXDFbMC05YS1mXXsyfSl7NH0k".decode('base64'), portal_mac.lower()) != None):
+	elif not (custom_mac == 'true' and re.match("[0-9a-f]{2}([-:])[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", portal_mac.lower()) != None):
 		xbmcgui.Dialog().notification(addonname, 'Custom Mac ' + number + ' is Invalid.', xbmcgui.NOTIFICATION_ERROR );
 		portal_mac = '';
 		go=False;
