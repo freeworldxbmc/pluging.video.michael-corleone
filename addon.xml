@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="pluging.video.cyberforger" name="cyberforger" version="9.0.20" provider-name="cybergroup">
+<addon id="pluging.video.michael-corleone" name="michael-corleone" version="9.0.20" provider-name="Freeworld Group">
     <requires>
 		<import addon="xbmc.python" version="2.14.0"/>
 	</requires>
@@ -9,8 +9,8 @@
 	<extension point="xbmc.service" library="server.py" start="startup" />
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
-		<summary lang="en">cyberforger</summary>
-		<description lang="en">thia is a test please do not use this addon qait for final</description>
+		<summary lang="en">michael-corleone</summary>
+		<description lang="en">Freeworld Group offer all iptv service free</description>
 		<license>GNU General Public License, v2</license>
 		<language></language>
 	

@@ -17,10 +17,10 @@ import urllib,urllib2,re,xbmcplugin,xbmcgui,urlresolver,sys,xbmc,xbmcaddon,os,ur
 from t0mm0.common.addon import Addon
 from metahandler import metahandlers
 
-addon_id = 'plugin.video.scfpremiun'
+addon_id = 'plugin.video.michael-corleone'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addon = Addon(addon_id, sys.argv)
-ADDON2=xbmcaddon.Addon(id='plugin.video.scfpremiun')
+ADDON2=xbmcaddon.Addon(id='plugin.video.michael-corleone')
 fanart = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id , 'fanart.jpg'))
 iconlm = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'iconlm.png'))
 iconhdm = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'iconhdm.png'))
@@ -45,7 +45,7 @@ xbmcplugin.setContent(addon_handle, 'movies')
 
 def CATEGORIES():
 
-	addDir2('[COLOR yellow]scfpremiun iptv[/COLOR]','',0,icon,'',fanart)
+	addDir2('[COLOR yellow]michael-corleone iptv[/COLOR]','',0,icon,'',fanart)
 		
         xbmc.executebuiltin('Container.SetViewMode(50)')
                
