@@ -2,6 +2,7 @@ import sys
 import os
 import json
 import urllib
+import urllib2
 import urlparse
 import xbmcaddon
 import xbmcgui
@@ -10,23 +11,28 @@ import load_channels
 import hashlib
 import re
 import time
-
+import xbmc
+import net
 import server
 import config
-import urllib,urllib2,re,xbmcplugin,xbmcgui,urlresolver,sys,xbmc,xbmcaddon,os,urlparse
+import shutil
+
 from t0mm0.common.addon import Addon
 from metahandler import metahandlers
 
-addon_id = 'plugin.video.michael-corleone'
+addon_id = 'plugin.video.stalker'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addon = Addon(addon_id, sys.argv)
-ADDON2=xbmcaddon.Addon(id='plugin.video.michael-corleone')
+ADDON2=xbmcaddon.Addon(id='plugin.video.stalker')
 fanart = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id , 'fanart.jpg'))
 iconlm = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'iconlm.png'))
 iconhdm = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'iconhdm.png'))
 iconts = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'iconts.png'))
 icons = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icons.png'))
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icon.png'))
+directory = xbmc.translatePath('special://home/userdata/addon_data/script.tvguidetecbox/')
+destinaddons = xbmc.translatePath('special://home/userdata/addon_data/script.tvguidetecbox/addons.ini')
+destinsets = xbmc.translatePath('special://home/userdata/addon_data/script.tvguidetecbox/settings.xml')
 metaset = selfAddon.getSetting('enable_meta')
 
 addon       = xbmcaddon.Addon()
@@ -38,168 +44,172 @@ addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 go = True;
 
-#xbmcgui.Dialog().ok(addonname, 'aaa')
-
 xbmcplugin.setContent(addon_handle, 'movies')
 
+net = net.Net()
+dialog = xbmcgui.Dialog()
 
-def CATEGORIES():
+user = selfAddon.getSetting('username')
+passw = selfAddon.getSetting('password')
 
-	addDir2('[COLOR yellow]michael-corleone iptv[/COLOR]','',0,icon,'',fanart)
-		
-        xbmc.executebuiltin('Container.SetViewMode(50)')
-               
-def GETMOVIES(url,name):
-        metaset = selfAddon.getSetting('enable_meta')
-        link = open_url(url)
-        if 'category/serials/' in url: metaset='false'
-        match=re.compile('<a href="(.+?)" title="(.+?)">').findall(link)[:-12]
-        for url,name in match:
-                name=cleanHex(name)
-                if metaset=='false':
-                        addLink(name,url,100,icon,'',fanart)
-                else: addDir(name,url,100,'',len(match),isFolder=False)
-        try:
-                url=re.compile("<link rel='next' href='(.+?)'/>").findall(link)[0]
-                addDir2('Next Page>>',url,1,icon,'',fanart)
-        except: pass
-        if metaset=='true':
-                setView('movies', 'MAIN')
-        else: xbmc.executebuiltin('Container.SetViewMode(50)')
-        
-def cleanHex(text):
-    def fixup(m):
-        text = m.group(0)
-        if text[:3] == "&#x": return unichr(int(text[3:-1], 16)).encode('utf-8')
-        else: return unichr(int(text[2:-1])).encode('utf-8')
-    return re.sub("(?i)&#\w+;", fixup, text.decode('ISO-8859-1').encode('utf-8'))
+if user == '' or passw == '':
+	dialog.ok(addon_id, 
+	dialog.ok(addon_id, 
+	ret = dialog.yesno
+	if ret == 1:
+		keyb = xbmc.Keyboard('' ')
+		keyb.doModal()
+		if (keyb.isConfirmed()):
+			search = keyb.getText()
+			username=search
+			keyb = xbmc.Keyboard('', '')
+			keyb.doModal()
+			if (keyb.isConfirmed()):
+				search = keyb.getText()
+				password=search
+				selfAddon.setSetting('username',username)
+				selfAddon.setSetting('password',password)
+	else:quit()
 
+def Main():
+	addDir(
+	addDir(
+	addDir(                                                 
+	addDir(
+	addDir(
+	xbmc.executebuiltin('')
 
-def SEARCH():
-    search_entered =''
-    keyboard = xbmc.Keyboard(search_entered, 'Search Online Movies Pro')
-    keyboard.doModal()
-    if keyboard.isConfirmed():
-        search_entered = keyboard.getText().replace(' ','+')
-    if len(search_entered)>1:
-        url = 'http://onlinemovies.pro/?s='+ search_entered
-        link = open_url(url)
-        GETMOVIES(url,name)
+def Ivue():
+	if not os.path.exists(directory):
+		dialog.ok(addon_id, '
+		dialog.notification(addonname, 'please install and run ivue tv guide at least once', xbmcgui.NOTIFICATION_ERROR );
+	
+	if os.path.exists(directory):
+		addonsini = urllib.URLopener()
+		addonsini.retrieve destinaddons)
+		addonsini = urllib.URLopener()
+		addonsini.retrieve(", destinsets)
+		addDir(' '',fanart)
+	xbmc.executebuiltin('')
+  
+def GetContent():
+	user = selfAddon.getSetting('username')
+	passw = selfAddon.getSetting('password')
+	headers={'VXNlci1BZ2VudA=='.decode('base64'):'QXBhY2hlLUh0dHBDbGllbnQvVU5BVkFJTEFCTEUgKGphdmEgMS40KQ=='.decode('base64'),
+			 'Q29udGVudC1UeXBl'.decode('base64'):'YXBwbGljYXRpb24veC13d3ctZm9ybS11cmxlbmNvZGVk'.decode('base64'),
+			 'YXBwLXNlc3Npb24='.decode('base64'):'Mjc1ZjI2ZTMyMTcyNmI5YTk5ZThkOTVjM2VmZTg4YWI='.decode('base64'),
+			 'Q29ubmVjdGlvbg=='.decode('base64'):'S2VlcC1BbGl2ZQ=='.decode('base64'),
+			 'SG9zdA=='.decode('base64'):'dWt0dm5vdy5kZXNpc3RyZWFtcy50dg=='.decode('base64')}
+	net.http_POST('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1sb2dpbiZ1c2VybmFtZT0='.decode('base64')+user+'&password='+passw,'',headers=headers)
+	net.http_POST('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfcGFja2FnZV9uYW1l'.decode('base64'),'',headers=headers)
+	net.http_POST('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYW5ub3Vj'.decode('base64'),'',headers=headers)
+	net.http_POST('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfcGFja2FnZV9uYW1l'.decode('base64'),'',headers=headers)
+	response=net.http_POST('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYWxsX2NoYW5uZWwmdXNlcm5hbWU9'.decode('base64')+user,'',headers=headers)
+	response=response.content.replace('none','Ch')
+	channels=json.loads(response)
+	return channels
 
-def PLAYLINK(name,url,iconimage):
-        link = open_url(url)
-        try: url=re.compile('src="(.+?)" allowFullScreen></iframe>').findall(link)[0]
-        except: url=re.compile("src='(.+?)' allowFullScreen></iframe>").findall(link)[0]
-        stream_url=urlresolver.resolve(url) 
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage=icon,thumbnailImage=icon); liz.setInfo( type="Video", infoLabels={ "Title": name } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz)
-        xbmc.Player ().play(stream_url, liz, False)
+def GetChannels(url):
+	channels = GetContent()
+	data=channels['channel']
+	for item in data:
+		name=item['name']
+		if name==None:name='Channel'
+		thumb=item['img']
+		cat=item['cat_id']
+		thumb='aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYv'.decode('base64')+thumb
+		if url=='0':
+			addLink(name,'url',2,thumb,fanart)
+		if cat==url:
+			addLink(name,'url',2,thumb,fanart)
+	xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_VIDEO_TITLE)
+	xbmc.executebuiltin('Container.SetViewMode(50)')
+
+def GetStreams(name):
+	channels = GetContent()
+	data=channels['channel']
+	streamname=[]
+	streamurl=[]
+	streamthumb=[]
+	for item in data:
+		thumb=item['img']
+		if item['name'] == name:			
+			streamurl.append( item['stream_url'] )
+			streamurl.append( item['stream_url2'] )
+			streamurl.append( item['stream_url3'] )
+			streamname.append( 'Stream 1' )
+			streamname.append( 'Stream 2' )
+			streamname.append( 'Stream 3' )
+			streamthumb.append( thumb )
+			streamthumb.append( thumb )
+			streamthumb.append( thumb )		
+	select = dialog.select(name,streamname)
+	if select == -1:
+		return
+	else:
+		url = streamurl[select]
+		iconimage = 'aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYv'.decode('base64')+streamthumb[select]
+		ok=True
+		liz=xbmcgui.ListItem(name, iconImage=iconimage,thumbnailImage=iconimage); liz.setInfo( type="Video", infoLabels={ "Title": name } )
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz)
+		xbmc.Player().play(url, liz, False)
+		return ok
+
+def addLink(name,url,mode,iconimage,fanart,description=''):
+		u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&description="+str(description)
+		ok=True
+		liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+		liz.setInfo( type="Video", infoLabels={ "Title": name, 'plot': description } )
+		liz.setProperty('fanart_image', fanart)
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+		return ok
+
+def addDir(name,url,mode,iconimage,fanart,description=''):
+		u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&description="+str(description)
+		ok=True
+		liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+		liz.setInfo( type="Video", infoLabels={ "Title": name, 'plot': description } )
+		liz.setProperty('fanart_image', fanart)
+		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+		return ok
 
 def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2:
-                params=sys.argv[2]
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-        return param
+		param=[]
+		paramstring=sys.argv[2]
+		if len(paramstring)>=2:
+				e4=sys.argv[2]
+				cleanedparams=e4.replace('?','')
+				if (e4[len(e4)-1]=='/'):
+						e4=e4[0:len(e4)-2]
+				pairsofparams=cleanedparams.split('&')
+				param={}
+				for i in range(len(pairsofparams)):
+						splitparams={}
+						splitparams=pairsofparams[i].split('=')
+						if (len(splitparams))==2:
+								param[splitparams[0]]=splitparams[1]	
+		return param
+		   
+e4=get_params()
+url=None
+name=None
+mode=None
+iconimage=None
+description=None
 
-def addLink(name,url,mode,iconimage,description,fanart):
-        xbmc.executebuiltin('Container.SetViewMode(50)')
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&description="+str(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, 'plot': description } )
-        liz.setProperty('fanart_image', fanart)
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-        return ok
+try:url=urllib.unquote_plus(e4["url"])
+except:pass
+try:name=urllib.unquote_plus(e4["name"])
+except:pass
+try:mode=int(e4["mode"])
+except:pass
+try:iconimage=urllib.unquote_plus(e4["iconimage"])
+except:pass
 
-def addDir2(name,url,mode,iconimage,description,fanart):
-        xbmc.executebuiltin('Container.SetViewMode(50)')
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&description="+str(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, 'plot': description } )
-        liz.setProperty('fanart_image', fanart)
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
-        return ok
-		
-def addDir(name,url,mode,iconimage,itemcount,isFolder=False):
-        if metaset=='true':
-            splitName=name.partition('(')
-            simplename=""
-            simpleyear=""
-            if len(splitName)>0:
-                simplename=splitName[0]
-                simpleyear=splitName[2].partition(')')
-            if len(simpleyear)>0:
-                simpleyear=simpleyear[0]
-            mg = metahandlers.MetaData()
-            meta = mg.get_meta('movie', name=simplename ,year=simpleyear)
-            u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&site="+str(site)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
-            ok=True
-            liz=xbmcgui.ListItem(name, iconImage=meta['cover_url'], thumbnailImage=iconimage)
-            liz.setInfo( type="Video", infoLabels= meta )
-            contextMenuItems = []
-            contextMenuItems.append(('Movie Information', 'XBMC.Action(Info)'))
-            liz.addContextMenuItems(contextMenuItems, replaceItems=True)
-            if not meta['backdrop_url'] == '': liz.setProperty('fanart_image', meta['backdrop_url'])
-            else: liz.setProperty('fanart_image', fanart)
-            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=isFolder,totalItems=itemcount)
-            return ok
-        else:
-            u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&site="+str(site)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
-            ok=True
-            liz=xbmcgui.ListItem(name, iconImage=icon, thumbnailImage=icon)
-            liz.setInfo( type="Video", infoLabels={ "Title": name } )
-            liz.setProperty('fanart_image', fanart)
-            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=isFolder)
-            return ok
-        
-def open_url(url):
-    req = urllib2.Request(url)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    response = urllib2.urlopen(req)
-    link=response.read()
-    response.close()
-    return link
-
-def setView(content, viewType):
-    if content:
-        xbmcplugin.setContent(int(sys.argv[1]), content)
-    if ADDON2.getSetting('auto-view')=='true':
-        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON2.getSetting(viewType) )
-
-params=get_params(); url=None; name=None; mode=None; site=None; iconimage=None
-try: site=urllib.unquote_plus(params["site"])
-except: pass
-try: url=urllib.unquote_plus(params["url"])
-except: pass
-try: name=urllib.unquote_plus(params["name"])
-except: pass
-try: mode=int(params["mode"])
-except: pass
-try: iconimage=urllib.unquote_plus(params["iconimage"])
-except: pass
-
-print "Site: "+str(site); print "Mode: "+str(mode); print "URL: "+str(url); print "Name: "+str(name)
-print params
-
-if mode==None or url==None or len(url)<1: CATEGORIES()
-elif mode==1: GETMOVIES(url,name)
-elif mode==2: GETTV(url,name)
-elif mode==3: SEARCH()
-elif mode==100: PLAYLINK(name,url,iconimage);
-
+if mode==None or url==None or len(url)<1:Main()
+elif mode==1:GetChannels(url)
+elif mode==2:GetStreams(name)
+elif mode==3:Ivue()
 
 
 def addPortal(portal):

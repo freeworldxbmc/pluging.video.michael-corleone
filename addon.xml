@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="pluging.video.michael-corleone" name="[COLOR blue]MICHAEL CORLEONE[/COLOR]" version="9.0.20" provider-name="Freeworld Group">
+<addon id="plugin.video.stalker" name="[COLOR yello]IPTV Stalker[/COLOR]" version="9.0.21" provider-name="freeworld">
     <requires>
 		<import addon="xbmc.python" version="2.14.0"/>
 	</requires>
@@ -9,10 +9,12 @@
 	<extension point="xbmc.service" library="server.py" start="startup" />
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
-		<summary lang="en">michael-corleone</summary>
-		<description lang="en">Freeworld Group offer all iptv service free</description>
+		<summary lang="en">IPTV Stalker-mod</summary>
+		<description lang="en">[COLOR orange]IPTV Stalker Channels Enjoy Free Service[/COLOR]</description>
 		<license>GNU General Public License, v2</license>
 		<language></language>
-	
+		<forum>http://ftazeta.com</forum>
+
+
 	</extension>
 </addon>

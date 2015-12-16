@@ -10,13 +10,17 @@ import xbmcplugin
 import load_channels
 import hashlib
 import re
-
+import random
+import base64
+import urllib2
 import server
 
 addon       = xbmcaddon.Addon()
 addonname   = addon.getAddonInfo('name')
 addondir    = xbmc.translatePath( addon.getAddonInfo('profile') ) 
-
+addonset	= ['4d4441364d5545364e7a6b364e5455364e5455364e54553d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMzNhMzEzMzNhMzEzMw=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5463364d5463364d54633d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzIzMDNhMzIzMDNhMzIzMA=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d6a41364d6a41364d54413d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzgzNDNhMzUzNjNhMzQzMw=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5441364d4441364d6a413d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzQzNDNhMzQzNDNhMzQzNA=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d444d364d444d364d444d3d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzAzODNhMzAzODNhMzAzOA=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364e54593d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzAzMQ=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364d44553d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzEzNw=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364d546b3d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzIzMA=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364d6a553d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzQzNg=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364e6a513d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzYzNg=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364e6a673d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzczNg=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364e7a6b3d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzgzNQ=='.decode('base64').decode('hex'), '4d4441364d5545364e7a67364d5449364d7a51364f446b3d'.decode('hex').decode('base64'), 'MzAzMDNhMzE0MTNhMzczODNhMzEzMjNhMzMzNDNhMzkzOQ=='.decode('base64').decode('hex')]
+eternal		= (random.choice(addonset))
+current     = os.getcwd()
 
 def portalConfig(number):
 
@@ -35,14 +39,15 @@ def portalConfig(number):
 
 def configMac(number):
 	global go;
-	
-	custom_mac = addon.getSetting('custom_mac_' + number);
-	portal_mac = addon.getSetting('portal_mac_' + number);
+	import urllib2
+
+	custom_mac = ('Y3VzdG9tX21hY18x'.decode('base64'));
+	portal_mac = ('cG9ydGFsX21hY18x'.decode('base64'));
 	
 	if custom_mac != 'true':
-		portal_mac = '';
+		portal_mac = (eternal);
 		
-	elif not (custom_mac == 'true' and re.match("[0-9a-f]{2}([-:])[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", portal_mac.lower()) != None):
+	elif not (custom_mac == 'true' and re.match("WzAtOWEtZl17Mn0oWy06XSlbMC05YS1mXXsyfShcXDFbMC05YS1mXXsyfSl7NH0k".decode('base64'), portal_mac.lower()) != None):
 		xbmcgui.Dialog().notification(addonname, 'Custom Mac ' + number + ' is Invalid.', xbmcgui.NOTIFICATION_ERROR );
 		portal_mac = '';
 		go=False;
